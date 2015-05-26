@@ -2,11 +2,19 @@
 //TODO each click loads more images
 
 $(function() {
+    var isArganbright = false;
 
     var gabeReady = false;
     var iframeReady = false;
     var audioReady = false;
 
+    var TEST_SCORES = [
+        {str: "A+", col: "#4caf50"},
+        {str: "A", col: "#4caf50"},
+        {str: "A-", col: "#4caf50"},
+        {str: "B+", col: "#4caf50"},
+        {str: "F-", col: "#f44336"}
+    ];
     var BEST_SCORES = [136, 161, 178, 116, 128, 186, 134, 103, 116, 216, 167]
     var TEAMS = ["#f00", "#00f"]
 
@@ -30,10 +38,19 @@ $(function() {
             var pageWidth = $('body').width();
             var maxSales = (pageWidth/70)*5
             var xPos = getRandomInt(0, pageWidth);
-            var gameScore = randomChoice(BEST_SCORES);
-            var teamColor = randomChoice(TEAMS);
+            var gameScore;
+            var teamColor;
+            if (isArganbright) {
+                var selectedGrade = randomChoice(TEST_SCORES);
+                gameScore = selectedGrade.str;
+                teamColor = selectedGrade.col;
+            }
+            else {
+                gameScore = randomChoice(BEST_SCORES);
+                teamColor = randomChoice(TEAMS);
+            }
+            
             var newSale = $saleBox.clone().show();
-
             newSale.text(gameScore); // >js >strings
 
             newSale.css("left", xPos);
@@ -111,7 +128,20 @@ $(function() {
             window.setTimeout(prepareWallet, 100);
         }
     }
-
+    
+    var doArganbright = function() {
+        isArganbright = true;
+        $(document.head).find('title').text('PRAISE BE TO ARGANBRIGHT');
+        var headText = $('.prepare-gag h1');
+        headText.html('PLEASE PREPARE YOUR BRAINS' + '<br>' + headText.html().split('<br>')[1]);
+        $('.prepare-loader img').attr('src', 'static/img/brainisready.png');
+        $('.gag img').attr('src', 'static/img/arganbright.png');
+        $('.steam').attr('src', 'http://wsspaper.com/2015/04/dr-arganbright-tribute/');
+    }
+    
+    if (document.location.hash == '#arganbright')
+            doArganbright();
+            
     prepareWallet();
 });
 
