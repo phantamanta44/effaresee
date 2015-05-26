@@ -13,7 +13,7 @@ $(function() {
         {str: "A", col: "#4caf50"},
         {str: "A-", col: "#4caf50"},
         {str: "B+", col: "#4caf50"},
-        {str: "F-", col: "#f44336"}
+        {str: "F", col: "#f44336"}
     ];
     var BEST_SCORES = [136, 161, 178, 116, 128, 186, 134, 103, 116, 216, 167]
     var TEAMS = ["#f00", "#00f"]
